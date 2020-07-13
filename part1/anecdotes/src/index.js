@@ -16,14 +16,12 @@ const NumberOfVotes = (props) => (
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [votes, setAll] = useState(new Array(6).fill(0))
-  const [maxVotes, setMaxVotes] = useState(0)
   const [maxVotesIndex, setMaxIndex] = useState(0)
 
   const makeVote = () => {
     const copy = [...votes]
     copy[selected] += 1
-    if (copy[selected] > maxVotes) {
-      setMaxVotes(copy[selected])
+    if (copy[selected] > votes[maxVotesIndex]) {
       setMaxIndex(selected)
     }
     setAll(copy)
