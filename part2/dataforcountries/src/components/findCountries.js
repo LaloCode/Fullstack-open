@@ -2,7 +2,7 @@ import React from 'react'
 
 const FindCountries = (props) => (
     <div>
-        find countries <input />
+        find countries <input value={props.searchCountry} onChange={props.handleSearchCountryOnChange}/>
     </div>
 )
 
