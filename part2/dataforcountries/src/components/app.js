@@ -22,7 +22,7 @@ const App = () => {
     return (
         <div>
             <FindCountries value={searchCountry} handleSearchCountryOnChange={handleSearchCountryOnChange}/>
-            <ShowCountries countries={countries} searchCountry={searchCountry}/>
+            <ShowCountries countries={countries} searchCountry={searchCountry} setSearchCountry={setSearchCountry}/>
         </div>
     )
 }
