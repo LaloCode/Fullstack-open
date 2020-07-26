@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const DisplayWeather = ({country}) => {
     const [weatherInfo, setWeatherInfo] = useState({})
+    const fetched = useRef(false)
 
     useEffect(() => {
         const params = {
@@ -13,20 +14,12 @@ const DisplayWeather = ({country}) => {
         axios
             .get('http://api.weatherstack.com/current', {params})
             .then(response => {
-                console.log(response.data)
+                fetched.current = true
                 setWeatherInfo(response.data)
             })
     }, [])
 
-    const firstUpdate = useRef(true)
-    useEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false
-        }
-    }, [weatherInfo])
-
-    if (!firstUpdate.current) {
-        firstUpdate.current = true
+    if (fetched.current) {
         return (    
             <div>
                 <h3>Weather in {weatherInfo.location.name}</h3>
@@ -36,8 +29,8 @@ const DisplayWeather = ({country}) => {
             </div>
         )
     }
-
-    return <div></div>
+    
+    return (<div></div>)
 }
 
 export default DisplayWeather
