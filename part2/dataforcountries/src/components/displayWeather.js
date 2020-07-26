@@ -13,9 +13,10 @@ const DisplayWeather = ({country}) => {
         axios
             .get('http://api.weatherstack.com/current', {params})
             .then(response => {
+                console.log(response.data)
                 setWeatherInfo(response.data)
             })
-    }, [country.name])
+    }, [])
 
     const firstUpdate = useRef(true)
     useEffect(() => {
@@ -25,8 +26,15 @@ const DisplayWeather = ({country}) => {
     }, [weatherInfo])
 
     if (!firstUpdate.current) {
-        console.log(weatherInfo)
-        return <h3>Weather in {weatherInfo.location.name}</h3>
+        firstUpdate.current = true
+        return (    
+            <div>
+                <h3>Weather in {weatherInfo.location.name}</h3>
+                <p><b>temperature: </b> {weatherInfo.current.temperature} Celcius</p>
+                <img src={weatherInfo.current.weather_icons[0]} alt={weatherInfo.current.weather_descriptions[0]}/>
+                <p><b>wind: </b> {weatherInfo.current.wind_speed} mph direction {weatherInfo.current.wind_dir}</p>
+            </div>
+        )
     }
 
     return <div></div>

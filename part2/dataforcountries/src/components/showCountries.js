@@ -3,7 +3,7 @@ import ListCountry from './listCountry'
 import DisplayCountryInfo from './displayCountryInfo'
 
 const ShowCountries = ({countries, searchCountry, setSearchCountry}) => {
-    const filteredCountries =countries.reduce((accumulator, currentValue) => {
+    const filteredCountries = countries.reduce((accumulator, currentValue) => {
         if (currentValue.name.toLowerCase().includes(searchCountry.toLowerCase())) {
             return (accumulator.concat(currentValue))
         }
