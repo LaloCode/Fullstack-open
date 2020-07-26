@@ -1,18 +1,7 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React from 'react'
+import DisplayWeather from './displayWeather'
 
 const DisplayCountryInfo = ({country}) => {
-    const [weatherInfo, setWeatherInfo] = useState({})
-
-    const params = {
-        access_key: process.env.REACT_APP_API_KEY,
-        query: country.name
-    }
-
-    axios.get('http://api.weatherstack.com/current', {params})
-        .then(response => {
-            console.log(response.data)
-        })
 
     return (
         <div>
@@ -26,7 +15,7 @@ const DisplayCountryInfo = ({country}) => {
                 ))}
             </ul>
             <img src={country.flag} alt='country flag' width='100' height='100'/>
-            <h3>Weather in {}</h3>
+            <DisplayWeather country={country}/>
         </div>
     )
 }
