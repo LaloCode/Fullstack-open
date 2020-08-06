@@ -3,8 +3,8 @@ import Person from './person'
 
 const Persons = ({persons, filter}) => (
     <div>
-        {persons.map((person) => 
-            <Person key={person.name} person={person} filter={filter}/>
+        {persons.map((person, i) => 
+            <Person key={i} person={person} filter={filter}/>
         )}
     </div>
 )
