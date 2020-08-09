@@ -30,10 +30,10 @@ const App = () => {
     if (persons.some((person) => person.name === newName)) {
         alert(`${newName} is already added to phonebook`)
     } else {
-        axios
-          .post('http://localhost:3001/persons', personObject)
-          .then(response => {
-            setPersons(persons.concat(response.data))
+        phoneService
+          .create(personObject)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
             setNewName('')
             setNewNumber('')
           })
@@ -52,6 +52,10 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  const handleDelete = (name) => {
+    console.log(name)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -64,7 +68,7 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      <Persons persons={persons} filter={filter}/>
+      <Persons persons={persons} filter={filter} handleDelete={handleDelete}/>
     </div>
   )
 }
