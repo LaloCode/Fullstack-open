@@ -24,7 +24,6 @@ const App = () => {
     const personObject = {
         name: newName,
         number: newNumber,
-        id: persons.length + 1,
     }
 
     if (persons.some((person) => person.name === newName)) {
@@ -53,7 +52,21 @@ const App = () => {
   }
 
   const handleDelete = (name) => {
-    console.log(name)
+    if (window.confirm(`Delete ${name}?`)) {
+      const elementToDelete = persons.find(person => {
+        return person.name === name
+      })
+  
+      phoneService
+        .erase(elementToDelete.id)
+  
+      setPersons(persons.reduce((result, person) => {
+        if (person.name !== elementToDelete.name) {
+          result.push(person)
+        }
+        return result
+      }, []))
+    }
   }
 
   return (
