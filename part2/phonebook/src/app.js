@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import Persons from './components/persons'
-import Filter from './components/filter'
-import PersonForm from './components/personForm'
-import phoneService from './services/phones'
+import SuccessMessage from './components/SuccessMessage'
+import ErrorMessage from './components/ErrorMessage'
+import Persons from './components/Persons'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import phoneService from './services/Phones'
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setFilter ] = useState('')
+  const [ successMessage, setSuccessMessage ] = useState(null)
+  const [ errorMessage, setErrorMessage ] = useState(null)
 
   useEffect(() => {
     phoneService
@@ -35,6 +38,16 @@ const App = () => {
           .update(newPerson.id, newPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id !== newPerson.id ? person : returnedPerson))
+            setSuccessMessage(`Updated ${returnedPerson.name}`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
+          })
+          .catch(error => {
+            setErrorMessage(`Information of ${newName} has already been removed from server`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
           })
       }
     } else {
@@ -44,6 +57,10 @@ const App = () => {
             setPersons(persons.concat(returnedPerson))
             setNewName('')
             setNewNumber('')
+            setSuccessMessage(`Added ${returnedPerson.name}`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
           })
     }
   }
@@ -81,6 +98,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <SuccessMessage message={successMessage} />
+
+      <ErrorMessage message={errorMessage} />
 
       <Filter filter={filter} handleFilterOnChange={handleFilterOnChange}/>
 
