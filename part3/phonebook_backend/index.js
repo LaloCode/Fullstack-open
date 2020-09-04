@@ -11,7 +11,7 @@ morgan.token('data', (req, res) => {
     if (req.method === 'POST') {
         return data
     } else {
-        return 
+        return ' '
     }
 })
 
